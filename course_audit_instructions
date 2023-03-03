@@ -1,0 +1,42 @@
+FCQ Course Audit Instructions
+
+# The course audit pulls data from CU-SIS, providing the most up-to-date information on classes, instructors and student enrollments. We use this information to set up FCQ administrations and processing/reporting results.
+
+# When to run: Run a couple weeks before the beginning of each semester to create an administration schedule. This allows FCQ coordinators to conduct an initial review. Update weekly (generally on Fridays, while setting up the next administration) until the auditing window opens (March/June/October). Run daily during three-week auditing window. Run weekly after that.
+
+######################################################
+# 1. Connect to CU-SIS
+######################################################
+# connect with your CIW login and password
+# for security reasons, it's better to pass through username and password as variables rather than entering them directly into the dbConnect call
+username <- 'DARC******CIW'
+password <- '********'
+drv <- dbDriver("Oracle")
+connection_string <- '(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=ciw.prod.cu.edu)(PORT=1525))(CONNECT_DATA=(SERVICE_NAME=CIW)))'
+con <- dbConnect(drv, username = username, password = password, dbname = connection_string)
+
+######################################################
+# 2. Run FCQ_Audit01.R
+######################################################
+# this connects R to CU-SIS with your CIW credentials and extracts the needed data from various CU-SIS tables and formatting them
+# this step is mostly pulling and prepping CU-SIS data prior to manipulation for the audit
+
+######################################################
+# 3. Run FCQ_Audit02.R
+######################################################
+# this is where we determine whether or not a class will receive FCQs
+# enter ongoing exceptions (departments, schools or courses that deviate from standard practice on a permanent basis)
+
+######################################################
+# 4. Run FCQ_Audit03.R
+######################################################
+# this is where we set the semester administration dates and connect them with the previous documents
+# enter one-time semester-based exceptions
+
+######################################################
+# 5. Run FCQ_Audit04.R
+######################################################
+# this generates the course audit files in Excel
+# there is a file that contains all classes and campuses
+# there are files broken down by campus
+# there are files broken down by fcq department
